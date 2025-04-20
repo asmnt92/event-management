@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from event_app.forms import EventForm,EventCategoryModelForm,ParticipantModelForm
+from event_app.models import Event
 from django.contrib import messages
+from datetime import datetime,timedelta
 
 # Create your views here.
 def create_event(request):
@@ -46,3 +48,17 @@ def register_participant(request):
     }
 
     return render(request,'register_form/register-participant.html',context)
+
+
+def home_page(request):
+    
+    events=Event.objects.filter(date__gt=datetime.now().date()).order_by('date')
+    d=datetime.combine(events.first().date,events.first().time)
+
+    d=d-datetime.now()
+    context={
+        'page':'home',
+        'events':events,
+        'd':d,
+    }
+    return render(request,'home_page/home.html',context)

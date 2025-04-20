@@ -1,0 +1,45 @@
+{% extends "index.html.html" %}
+{% block title %}Dashboard-page{% endblock title %}
+
+{% block header %}
+
+<header id="mainHeader" class="fixed z-50  h-24  top-0 left-0 w-full flex items-center justify-between px-12  border-b-2 border-gray-100 transition duration-300">
+        
+      
+    <!-- logo -->
+     <div class=" z-50">
+        <a href="" class="flex font-extrabold text-3xl items-center h-16">
+            <div class="text-gray-300 ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-13">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                  </svg>
+                </div>
+              <div class="text-green-300 font-mono relative">
+                MeeT
+                <span class="text-xs text-gray-600  absolute -right-1 -bottom-1.5">events</span>
+                </div>
+        </a>
+     </div>
+     <!-- nav section -->
+     <nav class="flex gap-16">
+        <ul class="flex items-center font-mono font-bold gap-10 text-xl ">
+            <li class="p-1 {% if page == 'home' %}text-green-400 {% else %}text-gray-200{% endif %} hover:text-green-400 transition duration-200"><a href="{% url 'event-management' %}" >Home</a></li>
+            <li class="p-1 {% if page == 'contact' %}text-green-400 {% else %}text-gray-200{% endif %} hover:text-green-400 transition duration-200"><a href="" >Contact</a></li>
+            <li class="p-1 {% if page == 'events' %}text-green-400 {% else %}text-gray-200{% endif %}  hover:text-green-400 transition duration-200"><a href="">Events</a></li>
+            <li class="p-1 {% if page == 'dashboard' %}text-green-400 {% else %}text-gray-200{% endif %}  hover:text-green-400 transition duration-200"><a href="">Dashboard</a></li>
+        </ul>
+        <div class='p-2 flex items-center '>
+            <span class=" p-2 rounded-full text-gray-100 bg-green-500 font-bold hover:text-green-500 hover:bg-gray-300 cursor-pointer ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                  </svg>
+                  
+            </span>
+         </div>
+     </nav>
+     <!-- search icon -->
+     
+
+</header>
+
+{% endblock header %}
