@@ -1,0 +1,30 @@
+
+.tr{
+    background-color: red;
+}
+
+.font-4{
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+}
+.font-4-100{
+    font-weight: 100;
+}
+.font-4-200{
+    font-weight: 200;
+}
+.font-4-300{
+    font-weight: 300;
+}
+.font-4-400{
+    font-weight: 400;
+}
+.font-4-500{
+    font-weight: 500;
+}
+.font-4-600{
+    font-weight: 600;
+}
+.font-4-700{
+    font-weight: 700;
+}

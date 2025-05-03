@@ -1,0 +1,7 @@
+<li class="p-1 {% if page == 'home' %}text-green-400 {% else %}text-gray-200{% endif %} hover:text-green-400 transition duration-200"><a href="{% url 'event-management' %}" >Home</a></li>
+<li class="p-1 {% if page == 'contact' %}text-green-400 {% else %}text-gray-200{% endif %} hover:text-green-400 transition duration-200"><a href="" >Contact</a></li>
+<li class="p-1 {% if page == 'events' %}text-green-400 {% else %}text-gray-200{% endif %}  hover:text-green-400 transition duration-200"><a href="{% url 'events-show' %}">Events</a></li>
+<li class="p-1 {% if page == 'dashboard' %}text-green-400 {% else %}text-gray-200{% endif %}  hover:text-green-400 transition duration-200"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="p-1 {% if page == 'add-event' %}text-green-400 {% else %}text-gray-200 hidden{% endif %}  hover:text-green-400 transition duration-200"><a href="{% url 'create-event' %}">Add event</a></li>
+<li class="p-1 {% if page == 'update-event' %}text-green-400 {% else %}text-gray-200 hidden{% endif %}  hover:text-green-400 transition duration-200"><a href="{% url 'dashboard' %}">Update event</a></li>
+<li class="p-1 {% if page == 'Register-participant' %}text-green-400 {% else %}text-gray-200 hidden{% endif %}  hover:text-green-400 transition duration-200"><a href="{% url 'register-participant' %}">Register participant</a></li>
