@@ -235,23 +235,5 @@
 
     </div>
   </section>
-{% comment %} bottom icon {% endcomment %}
-  <div id="add_event_and_participant_parent" class="fixed bottom-4 right-2 p-1 text-gray-50 bg-green-500 rounded-md font-bold cursor-pointer hover:bg-green-400">
-    <svg id="svg-plus-and-cross-button" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 transition-transform duration-300 ">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-      </svg>
-
-    <!-- <div id="add_event_and_participant_child" class="absolute -top-42 -left-24 w-32 h-40 p-1 rounded-s-md rounded-t-md  bg-gray-500/40 hidden transition duration-300"> -->
-    <div id="add_event_and_participant_child" class="absolute -top-42 -left-24 w-32 h-40 p-2 rounded-s-md rounded-t-md bg-gray-500/70 scale-0 origin-bottom-right transition-all duration-500">
-            <!-- content -->
-        <div class="text-xl text-center p-3 mt-1 mb-3 cursor-default bg-gray-400 rounded-sm text-gray-100 shadow-sm shadow-black">ADD</div>
-        <div class="flex flex-col gap-2 text-md font-semibold text-gray-100 ">
-            <a href="{% url 'create-event' %}" class=" p-1 bg-green-500/60 rounded-lg hover:bg-green-400/60 hover:text-gray-500 shadow-md shadow-black">Events</a>
-            <a href="{% url 'register-participant' %}" class=" p-1 bg-green-500/60 rounded-lg hover:bg-green-400/60 hover:text-gray-500 shadow-md shadow-black">Participants</a>
-        </div>
-
-    </div>
-      
-</div>
 
 {% endblock hero %}
