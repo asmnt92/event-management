@@ -22,7 +22,7 @@
             <ul>
                 {% if categorys %}
                 {% for category in categorys %}
-                <li ><a class="px-2 py-1 rounded-md inline-block hover:bg-gray-100/20 hover:text-green-50 transform duration-150" href="{% url 'events-show' %}?category={{category.id}}">{{category.category_name}}</a></li>
+                <li ><a class="px-2 py-1 rounded-md inline-block hover:bg-gray-100/20 hover:text-green-50 transform duration-150" >{{category}}</a></li>
                 {% endfor %}
                 {% endif %}
             </ul>
