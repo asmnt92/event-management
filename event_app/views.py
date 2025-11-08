@@ -119,7 +119,7 @@ def home_page(request):
 def events(request):
     category_get=request.GET.get('category','all')
     category_search=request.GET.get('search','notfound')
-    categorys=Category.objects.all().distinct()
+    event_categorys=dict(Category.EVENT_CATEGORIES).values()
     events=Event.objects.all()
     if category_get != 'all':
         events=Event.objects.filter(category=category_get)        
@@ -145,7 +145,7 @@ def events(request):
                 
             
     context={
-        'categorys':categorys,
+        'event_categorys':event_categorys,
         'events':events,
         'page':'events'
     }
