@@ -77,7 +77,7 @@
                             <span>{{event.location}}</span>
                         </div>
                         <p class="text-gray-600 mb-4 line-clamp-2">{{event.description}}</p>
-                        <div class="flex flex-wrap gap-2 md:gap-0 justify-between">
+                        <div class="flex flex-wrap  items-end  gap-2 md:flex-row md:gap-0 justify-between w-full">
                             <div class="flex items-center text-gray-500">
                                 <i class="fas fa-users mr-2"></i>
                                 <span>{% if event.total_participants %} {{event.total_participants}}+ Participants {% else %}00 Participants{% endif %}</span>

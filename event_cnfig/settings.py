@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_j9ba#q4lndx+tf76_#fpfgm(zp)yu=i$_#9$qqq!qu@^60#ft'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,26 +76,26 @@ WSGI_APPLICATION = 'event_cnfig.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'event_test',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'event_test',
+#         'USER': 'postgres',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # for development 
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://event_management_bd_tf51_user:WHvGQ27HOry5cOAe7PiAnzivkEwaPSau@dpg-d47dpr7diees7399vacg-a.oregon-postgres.render.com/event_management_bd_tf51',
-#         conn_max_age=600
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://event_management_bd_tf51_user:WHvGQ27HOry5cOAe7PiAnzivkEwaPSau@dpg-d47dpr7diees7399vacg-a.oregon-postgres.render.com/event_management_bd_tf51',
+        conn_max_age=600
+    )
+}
 
 
 
