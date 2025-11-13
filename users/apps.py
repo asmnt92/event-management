@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class EventAppConfig(AppConfig):
+class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'event_app'
+    name = 'users'
 
     def ready(self):
-        import event_app.signals
+        import users.signals

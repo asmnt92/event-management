@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} MeeTevents - Event Management {% endblock title %}</title>
+    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <header class="w-full">
+        {% if user.is_authenticated %}
+          {% include "guest/logged-nav.html" %}
+          
+          {% else %}
+          
+          {% include "guest/guest-nav.html" %}
+          
+        {% endif %}
+    </header>
+    
+
+    <main {% block main_class %}class=" w-full mx-auto"{% endblock main_class %}>
+        {% block content %}
+        {% include "guest/guest-content.html" %}
+        {% endblock content %}
+    </main>
+
+
+    <!-- Footer -->
+    {% include "guest/footer.html" %}
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        {% block script %} {% endblock script %}
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% extends "guest/guest-page.html" %}
+{% block title %}Sign In{% endblock title %}
+{% block main_class %}class="flex-grow flex items-center justify-center px-6 py-10 min-h-lvh"{% endblock main_class %}
+{% block content %}
+  <div class="mx-auto my-28 bg-gray-800  shadow-lg rounded-2xl p-8 w-full max-w-xl transition duration-300">
+    <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-gray-100 mb-6">Sign In</h2>
+    {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="p-2 text-center font-semibold 
+                            {% if message.tags == 'success' %}text-green-500{% else %}text-red-500{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form action="" method="POST" class="space-y-5">
+      {% csrf_token %}
+      
+      <!-- Username -->
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          Username
+        </label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          class="text-black border-2 border-gray-300 w-full p-3 rounded-lg shadow-sm focus:outline-none focus:border-green-500 focus:ring-rose-500"
+          placeholder="Enter your username"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          Password
+        </label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="text-black border-2 border-gray-300 w-full p-3 rounded-lg shadow-sm focus:outline-none focus:border-green-500 focus:ring-rose-500"
+          placeholder="Enter your password"
+          required
+        />
+
+        <!-- Show Password -->
+        <div class="flex items-center mt-2">
+          <input 
+            id="showPassword" 
+            type="checkbox" 
+            class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+          />
+          <label for="showPassword" class="ml-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer select-none">
+            Show password
+          </label>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button 
+        type="submit" 
+        class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
+      >
+        Sign In
+      </button>
+    </form>
+    <p class="text-center text-gray-200 mt-4">
+        Don't have an account?
+        <a href='{% url "users:sign-up" %}' class="openModalBtn-signUp text-blue-500 hover:underline">Sign Up</button>
+      </p>
+  </div>
+{% endblock content %}
+
+{% block script %}
+
+  // Password visibility toggle
+  const passwordInput = document.getElementById('password');
+  const showPasswordCheckbox = document.getElementById('showPassword');
+
+  if (showPasswordCheckbox && passwordInput) {
+    showPasswordCheckbox.addEventListener('change', function() {
+      passwordInput.type = this.checked ? 'text' : 'password';
+    });
+  }
+
+{% endblock script %}
