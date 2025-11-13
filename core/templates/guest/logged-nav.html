@@ -1,0 +1,77 @@
+    <nav class="bg-white shadow-md w-full fixed top-0 z-50">
+        <div class="{% if role == 'Admin' %}max-w-10xl {% else %}max-w-7xl {% endif %} mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-calendar-alt text-purple-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-800">MeeTevents</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'guest-page' %}" class="{% if page == 'guest-page' or page == 'home' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Home</a>
+                    <a href="{% url 'events' %}" class="{% if page == 'events' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Events</a>
+                    <a href="{% url 'past-events' %}" class="{% if page == 'past-events' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Past Events</a>
+                    {% if role == 'User' %}
+                    <a href="{% url 'participate' %}" class="{% if page == 'participate' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Participated</a>
+                    {% endif %}
+                    
+                    {% if role == "Organizer" or role == 'Admin' %}
+                    <a href="{% url 'create-event' %}" class="{% if page == 'create-event' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Create Events</a>
+                    <a href="{% url 'create-category' %}" class="{% if page == 'create-category' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Create Category</a>
+                    {% if role == 'Admin' %}
+                    <a href="{% url 'users:user-list' %}" class="{% if page == 'user-list' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Users</a>
+                    <a href="{% url 'users:create-group' %}" class="{% if page == 'create-group' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Create Group</a>
+                    <a href="{% url 'users:group-list' %}" class="{% if page == 'group-list' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Groups</a>
+                    {% endif %}  
+                    {% endif %}
+                    
+                    <a href="{% url 'features' %}" class="{% if page == 'features' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Features</a>
+                    <a href="{% url 'contact' %}" class="{% if page == 'contact' %}text-purple-600 {% else %} text-gray-600{% endif %} hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Contact</a>
+                </div>
+
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    
+                    <a href="{% url 'users:sign-out' %}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-300 shadow-md">Sign out</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="{% url 'guest-page' %}" class="{% if page == 'guest-page' or page == 'home' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Home</a>
+                    <a href="{% url 'events' %}" class="{% if page == 'events' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Events</a>
+                    <a href="{% url 'past-events' %}" class="{% if page == 'past-events' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Past Events</a>
+                    {% if role == 'User' %}
+                     <a href="{% url 'participate' %}" class="{% if page == 'participate' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Participated</a>
+                    {% endif %}
+                    
+                    {% if role == "Organizer" or role == 'Admin' %}
+                    <a href="{% url 'create-event' %}" class="{% if page == 'create-event' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Create Events</a>
+                    <a href="{% url 'create-category' %}" class="{% if page == 'create-category' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Create Category</a>
+                    {% if role == 'Admin' %}
+                    <a href="{% url 'users:user-list' %}" class="{% if page == 'user-list' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Users</a>
+                    <a href="{% url 'users:create-group' %}" class="{% if page == 'create-group' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Create Group</a>
+                    <a href="{% url 'users:group-list' %}" class="{% if page == 'group-list' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Groups</a>
+                    {% endif %}  
+                    {% endif %}
+                    
+                    <a href="{% url 'features' %}" class="{% if page == 'features' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Features</a>
+                    <a href="{% url 'contact' %}" class="{% if page == 'contact' %}text-purple-600 {% else %} text-gray-600{% endif %} block text-center hover:text-purple-600 px-3 py-2 text-sm font-medium transition duration-300">Contact</a>
+                <div class="pt-4 pb-3 border-t border-gray-200">
+                    <a href="{% url 'users:sign-out' %}" class="block text-center bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-300 shadow-md">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </nav>

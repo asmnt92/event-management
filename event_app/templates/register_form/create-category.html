@@ -1,11 +1,11 @@
 {% extends "guest/guest-page.html" %}
-{% block title %}Create Events{% endblock title %} 
+{% block title %}Create Category{% endblock title %}
 {% block main_class %}class="flex-grow flex items-center justify-center px-6 py-10 min-h-lvh"{% endblock main_class %}
 {% block content  %}
 
 
 <div class="mx-auto my-28 bg-gray-800  shadow-lg rounded-2xl p-8 w-full max-w-xl transition duration-300">
-    <h2 class="text-2xl py-5 font-semibold text-green-600 mb-6 text-center">Create Event</h2>
+    <h2 class="text-2xl py-5 font-semibold text-green-600 mb-6 text-center">Create Category</h2>
 
         <!-- Messages -->
     {% if messages %}
@@ -19,19 +19,15 @@
         </div>
     {% endif %}
     
-    <form method="POST" enctype="multipart/form-data" class="space-y-6 mb-8">
+    <form method="POST" class="space-y-6 mb-8">
         {% csrf_token %}
 
         {% for form in forms %}
         <div>
             {{ form }}
         </div>
-        
         {% endfor %}
-        <div class="flex flex-col text-gray-300 w-full">
-           {{forms_image.event_image.label}}
-        <div  class="text-black border-2 border-gray-300 bg-gray-100 w-full p-3 rounded-lg shadow-sm focus:outline-none focus:border-green-500 focus:ring-rose-500">{{forms_image.event_image}}</div>
-        </div>
+
 
         <!-- Submit Button -->
        <div class="text-center mt-8 mb-6 flex justify-center">
@@ -52,4 +48,3 @@
 </div>
 
 {% endblock content  %}
-

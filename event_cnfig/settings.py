@@ -1,5 +1,6 @@
 
 from pathlib import Path
+from decouple import config
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_j9ba#q4lndx+tf76_#fpfgm(zp)yu=i$_#9$qqq!qu@^60#ft'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "debug_toolbar",
     'event_app',
+    'users',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -76,13 +79,15 @@ WSGI_APPLICATION = 'event_cnfig.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'Event-management',
+#         'NAME': 'event_test',
 #         'USER': 'postgres',
 #         'PASSWORD': 'password',
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
 # }
+
+# for development 
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -132,6 +137,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     BASE_DIR/'static',
     ]
+# for media file 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' 
 
 INTERNAL_IPS = [
     # ...
@@ -143,3 +151,15 @@ INTERNAL_IPS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#for email sending
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST',default='localhost')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS',cast=bool)
+EMAIL_PORT = config('EMAIL_PORT',cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# for frontend url
+
+FRONTEND_URL='https://event-management-t7x2.onrender.com/'

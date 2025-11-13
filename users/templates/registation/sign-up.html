@@ -1,0 +1,77 @@
+{% extends "guest/guest-page.html" %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block main_class %}class="flex-grow flex items-center justify-center px-6 py-10 min-h-lvh"{% endblock main_class %}
+{% block content %}
+  <div class="mx-auto my-28 bg-gray-800  shadow-lg rounded-2xl p-8 w-full max-w-xl transition duration-300">
+    <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-gray-100 mb-6">Create an Account</h2>
+
+    {% if form.non_field_errors %}
+      <ul class="mb-4 text-red-600 text-sm">
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form action="" method="POST" class="space-y-5">
+      {% csrf_token %}
+      
+      {% for field in form %}
+      <div>
+        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          {{ field.label }}
+        </label>
+        {{ field }}
+
+        {% if field.errors %}
+          <ul class="text-red-600 text-sm mt-1">
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <div class="flex items-center mt-2">
+        <input id="showPassword" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer" />
+        <label for="showPassword" class="ml-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer select-none">
+          Show passwords
+        </label>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
+        Sign Up
+      </button>
+    </form>
+    <p class="text-center text-gray-200 mt-4">
+        Already have an account?
+        <a href='{% url "users:sign-in" %}' class="openModalBtn-signIn text-blue-500 hover:underline">Sign In</a>
+      </p>
+  </div>
+{% endblock content %}
+
+{% block script %}
+
+  // Password show/hide toggle
+  const showPasswordCheckbox = document.getElementById('showPassword');
+  const passwordFields = [
+    document.getElementById('password'),
+    document.getElementById('confirm_password')
+  ];
+
+  if (showPasswordCheckbox) {
+    showPasswordCheckbox.addEventListener('change', function () {
+      const show = this.checked;
+      passwordFields.forEach(field => {
+        if (field) {
+          field.type = show ? 'text' : 'password';
+        }
+      });
+    });
+  }
+
+{% endblock script %}
+

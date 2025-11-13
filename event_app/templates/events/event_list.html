@@ -1,0 +1,113 @@
+{% extends "guest/guest-page.html" %}
+{% load static %}
+{% block title %}Events Showcase - MeeTevents{% endblock title %} 
+
+{% block content %}
+    <!-- Events Show Section -->
+    <section class="py-28  bg-gray-50">
+        {% if messages %}
+        {% for message in messages %}
+        <div class=" w-full text-center font-bold {% if message.tags == 'warning' %}text-red-400{% endif %}">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Filter Section -->
+            <div class="mb-8 p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Filter by Category</h3>
+                        <div class="flex flex-wrap gap-2">
+                            {% if event_categorys %}
+                            {% for category in event_categorys %}
+                            <a {% if page == 'events' %}href="{% url 'events' %}?category={{category.category_name}}" {% else %}href="{% url 'past-events' %}?category={{category.category_name}}"{% endif %} class="category-filter px-4 py-2 rounded-full bg-purple-600 text-white text-sm font-medium hover:bg-purple-700 transition-all duration-300" data-category="all">
+                                {{category.get_category_name_display}}
+                            </a>
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    
+                <div class="md:w-64">
+                    <form {% if page == 'events' %}action="{% url 'events' %}" {% else %}action="{% url 'past-events' %}"{% endif %} method="GET">
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
+                            Search Events
+                        </label>
+                        <div class="flex flex-col md:flex-row gap-2">
+                            <input type="text" id="search" name="search" placeholder="Search events..."
+                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
+                                value="{% if request.GET.category %}{{request.GET.category}}{% else %}{{ request.GET.search|default:'all' }}{% endif %}">
+                            <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-300 font-medium">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div> 
+
+                </div>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="events-container">
+                {% for event in events %}
+                <!-- Event Card-  -->
+                <div class="bg-white w-full rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300" >
+                    <div class="relative overflow-hidden">
+                        <img {% if event.asset.event_image %}src="{{event.asset.event_image.url}}" {% else %} src="{% static 'images/photo-1.jpg' %}" {% endif %} 
+                             alt="image not found" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 flex  flex-wrap">
+                            {% for category in event.category.all %}
+                            <span class="bg-blue-500 text-white px-3 py-1 m-1 rounded-full text-xs font-bold hover:scale-105 transition-transform duration-300">
+                                {{category.get_category_name_display}}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        {% comment %} <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-gray-800 font-bold px-3 py-1 rounded-lg">
+                            $199
+                        </div> {% endcomment %}
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">{{event.title}}</h3>
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <i class="fas fa-calendar-alt mr-2 text-purple-500"></i>
+                            <span>{{event.date|date:"F j, Y" }}</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt mr-2 text-purple-500"></i>
+                            <span>{{event.location}}</span>
+                        </div>
+                        <p class="text-gray-600 mb-4 line-clamp-2">{{event.description}}</p>
+                        <div class="flex flex-wrap  items-end  gap-2 md:flex-row md:gap-0 justify-between w-full">
+                            <div class="flex items-center text-gray-500">
+                                <i class="fas fa-users mr-2"></i>
+                                <span>{% if event.total_participants %} {{event.total_participants}}+ Participants {% else %}00 Participants{% endif %}</span>
+                            </div>
+                            <div class="flex gap-1">
+                                {% if role == "Organizer" or role == 'Admin' %}
+                                <a href='{% url "delete-event" event.id %}' class="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Delete
+                                </a>
+                                <a href='{% url "update-event" event.id %}' class="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Update
+                                </a>
+                                {% else %}
+                                <a {% if not user.is_authenticated %}href="{% url 'users:sign-in' %}" {% else %} href="{% url 'participant-event' event.id %}" {% endif %} class="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Register Now
+                                 </a>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% empty%}
+                <div class="text-center font-bold text-red-400">No Events</div>
+                {% endfor %}
+
+            </div>
+
+
+            </div>
+        </div>
+    </section>
+{% endblock content %}

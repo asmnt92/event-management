@@ -28,3 +28,17 @@
 .font-4-700{
     font-weight: 700;
 }
+
+
+/* for guest userpage  */
+
+  body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }

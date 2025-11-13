@@ -1,0 +1,188 @@
+
+<!-- Hero Section -->
+    <section class="mt-14 gradient-bg text-white py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Create Unforgettable Events</h1>
+                    <p class="text-xl mb-8">From corporate conferences to dream weddings, we handle every detail so you can focus on what matters most.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        {% comment %} <a href="#" class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition duration-300 text-center shadow-lg">Plan Your Event</a> {% endcomment %}
+                        <a href="{% url 'events' %}" class="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-6 py-3 rounded-lg font-semibold transition duration-300 text-center">View Upcoming Events</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    {% if event %}
+                    <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-8 max-w-md shadow-xl">
+                        <div class="flex justify-center mb-6">
+                            <div class="bg-white rounded-full p-4 shadow-lg">
+                                <i class="fas fa-calendar-check text-purple-600 text-4xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-center">Upcoming Event</h3>
+                        <div class="bg-white/30 p-4 rounded-lg mb-4">
+                            <h4 class="font-bold text-lg">{{event.title}} {{event.date | date:'Y'}}</h4>
+                            <p class="flex items-center mt-2"><i class="fas fa-calendar-day mr-2"></i>{{event.date | date:'F ,j , Y'}} </p>
+                            <p class="flex items-center mt-1"><i class="fas fa-map-marker-alt mr-2"></i>{{event.location}}</p>
+                        </div>
+                                {% if role == "Organizer" or role == 'Admin' %}
+                                <div class="flex gap-1 justify-end">
+                                <a href='{% url "delete-event" event.id %}' class="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Delete
+                                </a>
+                                <a href='{% url "update-event" event.id %}' class="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Update
+                                </a>
+                                </div>
+                                {% else %}
+                                <a {% if not user.is_authenticated %}href="{% url 'users:sign-in' %}" {% else %} href="{% url 'participant-event' event.id %}"{% endif %} class="block bg-white text-purple-600 hover:bg-gray-100 px-4 py-2 rounded-lg font-semibold transition duration-300 text-center">Register Now</a>
+                                {% endif %}
+                        
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Featured Events</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Discover our handpicked selection of upcoming events</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event Card 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden event-card border border-gray-100">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-indigo-600 relative">
+                        <div class="absolute top-4 left-4 bg-white text-blue-600 font-bold px-3 py-1 rounded-lg">Conference</div>
+                        <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-gray-800 font-bold px-3 py-1 rounded-lg">Locked</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Digital Marketing Summit</h3>
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Nov 20, 2025</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Business Center, San Francisco</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Learn from industry experts about the latest trends in digital marketing.</p>
+                        <p class="block bg-purple-600 hover:bg-purple-700 text-white text-center py-2 rounded-lg font-medium transition duration-300">Locked</p>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden event-card border border-gray-100">
+                    <div class="h-48 bg-gradient-to-r from-green-400 to-blue-500 relative">
+                        <div class="absolute top-4 left-4 bg-white text-green-600 font-bold px-3 py-1 rounded-lg">Workshop</div>
+                        <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-gray-800 font-bold px-3 py-1 rounded-lg">Locked</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Leadership Skills Workshop</h3>
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Dec 5, 2025</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Innovation Hub, Chicago</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Develop essential leadership skills to advance your career and inspire your team.</p>
+                        <p class="block bg-purple-600 hover:bg-purple-700 text-white text-center py-2 rounded-lg font-medium transition duration-300">Locked</p>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                {% if event2 %}
+                <div class="bg-white rounded-xl shadow-md overflow-hidden event-card border border-gray-100">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-500 relative ">
+                        <div class="p-4 flex flex-wrap gap-4">
+                       {% for category in category2 %}
+                        <div class=" bg-white text-purple-600 font-bold px-3 py-1 rounded-lg">{{category.get_category_name_display}}</div>
+                       {% endfor %}
+                       </div>
+                        <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-gray-800 font-bold px-3 py-1 rounded-lg">Ready</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">{{event2.title | slice:":20"}}...</h3>
+                        <div class="flex items-center text-gray-600 mb-2">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>{{event2.date | date:"M j, Y"}}</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>{{event2.location}}</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">{{event.description | slice:':80'}}...</p>
+                        
+                                {% if role == "Organizer" or role == 'Admin' %}
+                                <div class="flex gap-3 justify-end">
+                                <a href='{% url "delete-event" event.id %}' class="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Delete
+                                </a>
+                                <a href='{% url "update-event" event.id %}' class="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Update
+                                </a>
+                                </div>
+                                {% else %}
+                              
+                                <a {% if not user.is_authenticated %}href="{% url 'users:sign-in' %}" {% else %} href="{% url 'participant-event' event.id %}" {% endif %} class="cursor-pointer block text-center bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                                Register Now
+                                 </a>
+                             
+                                {% endif %}
+                            
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    {% comment %} <!-- Services Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive event management solutions for every occasion</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100">
+                    <div class="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Corporate Events</h3>
+                    <p class="text-gray-600">From conferences to team building, we handle all aspects of your corporate events.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100">
+                    <div class="bg-pink-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-ring text-pink-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Weddings</h3>
+                    <p class="text-gray-600">Create your dream wedding with our expert planning and coordination services.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-100">
+                    <div class="bg-green-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-music text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Concerts & Shows</h3>
+                    <p class="text-gray-600">Professional production and management for concerts, theater, and live performances.</p>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-4">Ready to Create Your Next Event?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of event organizers who trust us with their most important occasions.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="{% url 'contact' %}" class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition duration-300 shadow-lg">Create Your Event</a>
+                <a href="{% url 'contact' %}" class="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-6 py-3 rounded-lg font-semibold transition duration-300">Contact Our Team</a>
+            </div>
+        </div>
+    </section>

@@ -1,5 +1,5 @@
 from django import forms
-from event_app.models import Event,Participant,Category
+from event_app.models import Event,Category,Asset
 
 class FormModelStyleMixin:
     base_style='border-2 p-2  border-gray-500 rounded-lg bg-white hover:bg-gray-50 text-green-800 '
@@ -53,22 +53,21 @@ class FormModelStyleMixin:
 class EventForm(FormModelStyleMixin,forms.ModelForm):
     class Meta:
         model=Event
-        fields=['name','description','location','date','time']
+        fields=['title','description','date','time','location','category']
         labels={
             'name':'Event Name',
             'description':'Event Description',
             'location':'Event Location Like (city-country)',
             'date':'Event Date',
             'time':'Event Time',
+            'category':'Select Event'
         }
         widgets={
             'name':forms.TextInput,
             'description':forms.Textarea,
             'date':forms.SelectDateWidget,
-            'time':forms.TimeInput(attrs={
-                                        'type':'time'
-                                         }),
-            
+            'time':forms.TimeInput(attrs={'type':'time'}),
+            'category':forms.CheckboxSelectMultiple,
              
         }
 
@@ -82,7 +81,6 @@ class EventForm(FormModelStyleMixin,forms.ModelForm):
 
 
 class EventCategoryModelForm(FormModelStyleMixin,forms.ModelForm):
-    
 
     class Meta:
         model=Category
@@ -102,19 +100,14 @@ class EventCategoryModelForm(FormModelStyleMixin,forms.ModelForm):
 
 
 
-class ParticipantModelForm(FormModelStyleMixin,forms.ModelForm):
+class AssetForm(FormModelStyleMixin,forms.ModelForm):
+    class Meta:
+        model=Asset
+        fields=['event_image']
+        labels={
+            'event_image':'Upload Image'
+        }
+
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.style_all_field()
-
-    class Meta:
-        model=Participant
-        fields='__all__'
-        labels={
-            'events':'Select Events'
-        }
-        widgets={
-            'name':forms.TextInput,
-            'email':forms.EmailInput,
-            'events':forms.CheckboxSelectMultiple,
-        }
